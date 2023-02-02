@@ -1,0 +1,66 @@
+[
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": true,
+                "internalType": "address",
+                "name": "tokenContract",
+                "type": "address"
+            },
+            {
+                "indexed": true,
+                "internalType": "uint256",
+                "name": "tokenId",
+                "type": "uint256"
+            },
+            {
+                "indexed": true,
+                "internalType": "address",
+                "name": "buyer",
+                "type": "address"
+            },
+            {
+                "indexed": false,
+                "internalType": "address",
+                "name": "finder",
+                "type": "address"
+            },
+            {
+                "components": [
+                    {
+                        "internalType": "address",
+                        "name": "seller",
+                        "type": "address"
+                    },
+                    {
+                        "internalType": "address",
+                        "name": "sellerFundsRecipient",
+                        "type": "address"
+                    },
+                    {
+                        "internalType": "address",
+                        "name": "askCurrency",
+                        "type": "address"
+                    },
+                    {
+                        "internalType": "uint16",
+                        "name": "findersFeeBps",
+                        "type": "uint16"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "askPrice",
+                        "type": "uint256"
+                    }
+                ],
+                "indexed": false,
+                "internalType": "struct AsksV1_1.Ask",
+                "name": "ask",
+                "type": "tuple"
+            }
+        ],
+        "name": "AskFilled",
+        "type": "event"
+    }
+]
