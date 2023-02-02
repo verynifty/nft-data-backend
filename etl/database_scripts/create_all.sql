@@ -80,11 +80,6 @@ CREATE INDEX nft_transfer_trade_currency ON nft_transfer ("trade_currency");
 CREATE INDEX nft_transfer_timestamp ON nft_transfer (timestamp);
 
 
-     CREATE INDEX nft_trades_index_ordered_partial ON nft_transfer (timestamp desc)
-WHERE  trade_currency is null
-     and trade_marketplace = 1
-
-
 CREATE TABLE collection (
     "address" varchar(42) NOT NULL,
     "name" varchar NULL,
