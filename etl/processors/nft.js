@@ -167,103 +167,15 @@ NFT.prototype.update = async function (force = false) {
         }
 
         // todo fix this, i set this before we update schema
-        item.original_image = item.imageURL;
+        item.c = item.imageURL;
         // end
 
-        item.imagetype = await this._uploadImage(item.imageURL);
+        //item.imagetype = await this._uploadImage(item.imageURL);
+        item.imagetype = 1;
 
-        process.env.LOGS && console.log("image type", item.imagetype);
+       // process.env.LOGS && console.log("image type", item.imagetype);
 
-        if (collection.nft_image_base_url == null) {
-          /* HERE we try to find a pattern for image URL hosting */
-          let image_url_pattern = null;
-          if (item.imagetype == 1 || item.imagetype == 4) {
-            if (item.original_image.endsWith("/" + this.tokenId + ".png")) {
-              image_url_pattern = item.original_image.replace(
-                new RegExp("/" + this.tokenId + ".png$"),
-                "/__TOKENID__.png"
-              );
-            } else if (
-              item.original_image.endsWith("/" + this.tokenId + ".jpg")
-            ) {
-              image_url_pattern = item.original_image.replace(
-                new RegExp("/" + this.tokenId + ".jpg$"),
-                "/__TOKENID__.jpg"
-              );
-            } else if (
-              item.original_image.endsWith("/" + this.tokenId + ".mp4")
-            ) {
-              image_url_pattern = item.original_image.replace(
-                new RegExp("/" + this.tokenId + ".mp4$"),
-                "/__TOKENID__.mp4"
-              );
-            } else if (
-              item.original_image.endsWith("/" + this.tokenId + ".gif")
-            ) {
-              image_url_pattern = item.original_image.replace(
-                new RegExp("/" + this.tokenId + ".gif$"),
-                "/__TOKENID__.gif"
-              );
-            } else if (item.original_image.endsWith("/" + this.tokenId)) {
-              image_url_pattern = item.original_image.replace(
-                new RegExp("/" + this.tokenId + "$"),
-                "/__TOKENID__"
-              );
-            }
-            if (image_url_pattern != null) {
-              ToolBox.storage.update(
-                "collection",
-                {
-                  address: this.address,
-                  //"nft_image_base_url": null
-                },
-                {
-                  nft_image_base_url: image_url_pattern,
-                }
-              );
-            }
-          }
-        }
 
-        if (collection.nft_data_base_url == null) {
-          /* HERE we try to find a pattern for metadata URL hosting */
-          let url_pattern = null;
-          if (item.metadatatype == 5 || item.metadatatype == 1) {
-            if (URI.endsWith("/" + this.tokenId)) {
-              url_pattern = URI.replace(
-                new RegExp("/" + this.tokenId + "$"),
-                "/__TOKENID__"
-              );
-            } else if (URI.endsWith("/" + this.tokenId + ".json")) {
-              url_pattern = URI.replace(
-                new RegExp("/" + this.tokenId + ".json$"),
-                "/__TOKENID__.json"
-              );
-            } else if (URI.endsWith("/" + this.tokenId + "/metadata.json")) {
-              url_pattern = URI.replace(
-                new RegExp("/" + this.tokenId + "/metadata.json$"),
-                "/__TOKENID__/metadata.json"
-              );
-            } else if (URI.endsWith("id=" + this.tokenId)) {
-              url_pattern = URI.replace(
-                new RegExp("id=" + this.tokenId + "$"),
-                "id=__TOKENID__"
-              );
-            }
-            if (url_pattern != null) {
-              ToolBox.storage.update(
-                "collection",
-                {
-                  address: this.address,
-                  nft_data_base_url: null,
-                },
-                {
-                  nft_data_base_url: url_pattern,
-                }
-              );
-            }
-          }
-        }
 
         if (item.imagetype == 2 || item.imagetype == 3) {
           //TODO we don't store this this? We dont store the data of image in DB if it's on chain SVG
@@ -281,48 +193,17 @@ NFT.prototype.update = async function (force = false) {
         item.metadatatye = 0;
         item.imagetype = 0;
       }
-      process.env.LOGS &&
-        console.log(
-          "NEED TO DECODE THROUGH OPENSEA",
-          error,
-          this.address,
-          this.tokenId
-        );
-
+      
       // for now
       item = {};
       item.metadatatye = 0;
       item.imagetype = 0;
 
-      // for now remove this as anyway we are not using opensea
-      // try {
-      //   item = await this.decodeOpenSea();
-      //   item.metadatatype = 4;
-      //   item.imagetype = await this._uploadImage(item.original_image);
-      //   if (item.imagetype != 0) {
-      //     item.imagetype = 5;
-      //   }
-      // } catch (error) {
-      //   // removed
-      //   // console.log("Opensea fails", error);
-      //   // In this case the NFT is not even available on Opensea
-      //   item = {
-      //     imagetype: 0,
-      //     metadatatype: 0,
-      //   };
-      //   throw (
-      //     "Opensea doesnt know this NFT " + this.address + " " + this.tokenId
-      //   );
-      // }
     }
 
     process.env.LOGS && console.log("image type", item.imagetype);
 
-    let image =
-      item.imagetype != 0 && item.imagetype != 666
-        ? `https://media.niftyapi.xyz/${process.env.CHAIN != "ethereum" ? `${process.env.CHAIN}/` : ""
-        }${this.address}/${this.tokenId}`
-        : null;
+    let image = item.original_image;
 
     let attributes = null;
 

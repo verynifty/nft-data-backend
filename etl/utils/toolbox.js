@@ -29,18 +29,18 @@ function ToolBox() {
   this.ethereum = new (require("./ethereum"))(process.env.PEPESEA_DB_RPC);
   this.transferEventDecoder = new (require("./eventDecoder"))("transfers");
   this.params = {
-    erc20_transfers: this.readParam("NFTDATA_ERC20_TRANSFERS"),
-    erc20_history: this.readParam("NFTDATA_ERC20_HISTORY"),
-    erc721_transfers: this.readParam("NFTDATA_ERC721_TRANSFERS"),
-    erc721_history: this.readParam("NFTDATA_ERC721_HISTORY"),
-    erc721_metadata: this.readParam("NFTDATA_ERC721_METADATA"),
-    erc721_attributes: this.readParam("NFTDATA_ERC721_ATTRIBUTES"),
-    erc1155_history: this.readParam("NFTDATA_ERC1155_HISTORY"),
-    erc1155_metadata: this.readParam("NFTDATA_ERC1155_METADATA"),
-    erc1155_attributes: this.readParam("NFTDATA_ERC1155_ATTRIBUTES"),
-    fetch_tx_details: this.readParam("NFTDATA_FETCH_TX_DETAILS"),
-    chain_block_time: this.readParamInteger("NFTDATA_CHAIN_BLOCK_TIME"),
-    reorg_buffer: this.readParamInteger("NFTDATA_REORG_BUFFER", 5),
+    erc20_transfers: false,
+    erc20_history: false,
+    erc721_transfers: true,
+    erc721_history: true,
+    erc721_metadata: true,
+    erc721_attributes: true,
+    erc1155_history: true,
+    erc1155_metadata: true,
+    erc1155_attributes: true,
+    fetch_tx_details: true,
+    chain_block_time: 10,
+    reorg_buffer: 3,
     worker_update_max_retry: this.readParamInteger(
       "NFT_DATA_WORKER_NFT_UDPATE_MAX_RETRY",
       2
@@ -54,24 +54,11 @@ function ToolBox() {
     worker_log_success: false,
     worker_log_error: true,
   };
-  if (
-    process.env.NFTDATA_ROLLBAR_ACCESS_TOKEN != null &&
-    process.env.NFTDATA_ROLLBAR_ACCESS_TOKEN != ""
-  ) {
-    this.errorLogger = new Rollbar({
-      accessToken: process.env.NFTDATA_ROLLBAR_ACCESS_TOKEN,
-      captureUncaught: true,
-      captureUnhandledRejections: true,
-      locals: RollbarLocals,
-    });
-    this.error = function (name, data) {
-      this.errorLogger.error(name, data);
-    };
-  } else {
-    this.error = function (name, data) {
-      console.error(name, data);
-    };
-  }
+
+  this.error = function (name, data) {
+    console.error(name, data);
+  };
+
   this.cache = {
     collections: new LRUMap(this.params.cache_collection_size),
   };
@@ -167,7 +154,7 @@ ToolBox.prototype.processBlock = async function (
       ev.tx = tx_cache[ev.transactionHash];
     }
     let transfer_index = 0; // Transfer index are useful for ingesting ERC1155 bach transfers
-   
+
 
     // Divide price per number of ds?
     let itemTransferred = 0n;
