@@ -8,11 +8,13 @@ const WORKER_NUMBER = 15;
 
 (async () => {
   const pool = new pg.Pool({
-    user: process.env.NFT20_DB_USER,
-    host: process.env.NFT20_DB_HOST,
-    database: process.env.NFT20_DB_NAME,
-    password: process.env.NFT20_DB_PASSWORD,
-    port: process.env.NFT20_DB_PORT,
+    user: process.env.PEPESEA_DB_USER,
+    host: process.env.PEPESEA_DB_HOST,
+    database: process.env.PEPESEA_DB_NAME,
+    password: process.env.PEPESEA_DB_PASSWORD,
+    port: parseInt(process.env.PEPESEA_DB_PORT),
+    ssl: true,
+    ssl: { rejectUnauthorized: false },
     max: WORKER_NUMBER + 1,
   });
 

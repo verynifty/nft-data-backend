@@ -41,7 +41,7 @@ Provider.prototype.getLatestBlock = async function () {
 // A rescursive implementation to avoid issues with block range with more than 10k events
 // @TODO NEED TO MERGE WITH LAMBDA content
 Provider.prototype._getLogs = async function (logs, topic, start, end) {
-    console.log("gettling logs on range ", start, end, logs.length)
+    console.log("getting logs on range ", start, end, logs.length)
     try {
         let res = await this.w3.eth.getPastLogs({
             topics: topic,
