@@ -12,4 +12,7 @@ DROP SCHEMA if exists graphile_worker CASCADE;
 DROP TABLE IF EXISTS zora_offer  CASCADE;
 DROP TABLE IF EXISTS zora_ask  CASCADE;
 
-DROP FUNCTION IF EXISTS _final_median;
+DROP TABLE IF EXISTS follow_collection  CASCADE;
+
+
+--DROP FUNCTION IF EXISTS _final_median;
