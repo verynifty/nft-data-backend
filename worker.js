@@ -1,10 +1,10 @@
-const { run, consoleLogFactory } = require("graphile-worker");
+const { run } = require("graphile-worker");
 require("dotenv").config();
 const pg = require("pg");
 
 process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = "0";
 
-const WORKER_NUMBER = 15;
+const WORKER_NUMBER = 2;
 
 (async () => {
   const pool = new pg.Pool({
@@ -36,7 +36,6 @@ const WORKER_NUMBER = 15;
     await runner.stop();
   });
 
-  console.log("Runner stopped");
   // If the worker exits (whether through fatal error or otherwise), this
   // promise will resolve/reject:
   await runner.promise;

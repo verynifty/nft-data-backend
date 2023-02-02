@@ -12,7 +12,7 @@ function NFT(address, tokenId) {
   this.tokenId = tokenId + "";
   this.contract = new ToolBox.ethereum.w3.eth.Contract(ERC721ABI, this.address);
 
-  const rpc = process.env.NFT20_INFURA;
+  const rpc = process.env.PEPESEA_RPC;
 
   const infuraIPFS = "https://ipfs.infura.io:5001/api/v0/cat?arg=";
 
@@ -109,6 +109,7 @@ NFT.prototype.update = async function (force = false) {
     let item = null;
 
     try {
+      console.log(collection)
       let URI = await this._getMetadataURIFromBase(collection);
 
       URI = URI.trim();
@@ -186,6 +187,7 @@ NFT.prototype.update = async function (force = false) {
         item.imagetype = 0;
       }
     } catch (error) {
+      console.error(error)
       // this means we couldn't even fetch the token uri
       if (error == "Error: Cannot fetch uri from contract") {
         item = {};
@@ -296,21 +298,6 @@ NFT.prototype.update = async function (force = false) {
         address: this.address,
       });
     }
-
-    // const CHANNEL_ID = 438453914;
-
-    // try {
-    //   const bot = new Telegraf(process.env.TELEGRAM);
-
-    //   bot.telegram.sendMessage(CHANNEL_ID, error);
-
-    //   bot.telegram.sendMessage(
-    //     CHANNEL_ID,
-    //     `Impossible to index  ${this.address} ${this.tokenId}`
-    //   );
-    // } catch (e) {
-    //   console.log("failed to send tg message");
-    // }
 
     throw `Impossible to index  ${this.address} ${this.tokenId}`;
   }

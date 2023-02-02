@@ -162,6 +162,7 @@ Collection.prototype.addTransfer = async function (
       };
       await ToolBox.storage.insert("nft_transfer", item);
       if (ToolBox.params.erc721_metadata) {
+        console.log("UPDATE NFT")
         await nft.queueUpdate();
       }
     }
@@ -193,6 +194,7 @@ Collection.prototype.addTransfer = async function (
     };
     await ToolBox.storage.insert("nft_transfer", item);
     if (ToolBox.params.erc1155_metadata) {
+      console.log("UPDATE NFT")
       await nft.queueUpdate();
     }
   } else if (this.type == 20) {

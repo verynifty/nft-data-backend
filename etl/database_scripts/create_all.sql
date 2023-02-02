@@ -398,7 +398,6 @@ create
 or replace function nft_transfer_on_insert() returns trigger language PLPGSQL as 
 $$ declare target_nft nft;
 begin
-	
 UPDATE "collection" 
    SET transfers_total = transfers_total + 1
 WHERE NEW."collection" = collection."address";
@@ -449,22 +448,6 @@ end;
 $$;
  
  
- 
- 
-
-CREATE TRIGGER nft_transfer_insert BEFORE
-INSERT
-    ON nft_transfer FOR EACH ROW EXECUTE PROCEDURE nft_transfer_on_insert ();
-
-
-
-return new;
-
-end;
-
-$ $;
-
-
 
 
 
