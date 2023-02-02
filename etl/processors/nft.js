@@ -11,7 +11,6 @@ function NFT(address, tokenId) {
   this.address = ToolBox.ethereum.normalizeHash(address);
   this.tokenId = tokenId + "";
   this.contract = new ToolBox.ethereum.w3.eth.Contract(ERC721ABI, this.address);
-  this.bucket_nft_image_path = ToolBox.params.bucket_nft_image_path;
 
   const rpc = process.env.NFT20_INFURA;
 
@@ -433,14 +432,14 @@ NFT.prototype._uploadImage = async function (URL) {
           URL.slice(starter.length + 1),
           "base64"
         ).toString("utf-8");
-        await ToolBox.bucket.uploadSVGFromString(text, name);
+      //  await ToolBox.bucket.uploadSVGFromString(text, name);
       } else {
         // This is UTF8
         imagetype = 3;
-        await ToolBox.bucket.uploadSVGFromString(
+    /*    await ToolBox.bucket.uploadSVGFromString(
           URL.slice(starter.length + 1),
           name
-        );
+        ); */
       }
     } else if (
       URL.startsWith("<svg") ||
@@ -449,7 +448,7 @@ NFT.prototype._uploadImage = async function (URL) {
     ) {
       // Squiggly && neolastics style
       imagetype = 3;
-      await ToolBox.bucket.uploadSVGFromString(URL, name);
+     // await ToolBox.bucket.uploadSVGFromString(URL, name);
     } else if (URL.endsWith(".svg")) {
       imagetype = 1;
 
@@ -482,7 +481,7 @@ NFT.prototype.uploadImageURL = async function (URL) {
     }${this.address}/${this.tokenId}`;
 
   console.log("name", name);
-
+/*
   let result = await ToolBox.bucket.uploadFromURL(
     URL,
     name,
@@ -491,7 +490,8 @@ NFT.prototype.uploadImageURL = async function (URL) {
     ToolBox.params.requestTimeout,
     this.tokenId
   );
-  process.env.LOGS && console.log("Image uploaded", result);
+    process.env.LOGS && console.log("Image uploaded", result);
+  */
   return result;
 };
 

@@ -1,7 +1,5 @@
 require("dotenv").config();
 
-var Rollbar = require("rollbar");
-const RollbarLocals = require("rollbar/src/server/locals");
 const LRUMap = require("lru_map").LRUMap;
 const { quickAddJob } = require("graphile-worker");
 function ToolBox() {
@@ -26,7 +24,7 @@ function ToolBox() {
     ssl: true,
     ssl: { rejectUnauthorized: false },
   });
-  this.ethereum = new (require("./ethereum"))(process.env.PEPESEA_DB_RPC);
+  this.ethereum = new (require("./ethereum"))(process.env.PEPESEA_RPC);
   this.transferEventDecoder = new (require("./eventDecoder"))("transfers");
   this.params = {
     erc20_transfers: false,

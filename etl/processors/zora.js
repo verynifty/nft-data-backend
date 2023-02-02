@@ -1,5 +1,4 @@
 const axios = require("axios");
-const { collectionLaunch } = require("../../amplify/backend/function/niftyapi/src/controllers/workerController");
 function Zora() {
     this.name = "Zora Ask";
     this.version = 1;

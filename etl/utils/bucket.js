@@ -3,12 +3,8 @@ require("dotenv").config();
 const AWS = require("aws-sdk");
 const axios = require("axios");
 
-const sharp = require("sharp");
 // const gifResize = require("@gumlet/gif-resize");
-const pixelmatch = require("pixelmatch");
 
-const ffmpeg = require("ffmpeg-static");
-const genThumbnail = require("simple-thumbnail");
 const { Readable } = require("stream");
 var streamBuffers = require("stream-buffers");
 const e = require("cors");
