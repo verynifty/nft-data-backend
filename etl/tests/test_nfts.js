@@ -8,12 +8,30 @@ const sleep = (waitTimeInMs) =>
 (async () => {
   console.log("Will test");
 
+  const storage = new (require("../utils/postgres"))({
+    user: process.env.PEPESEA_DB_USER,
+    host: process.env.PEPESEA_DB_HOST,
+    database: process.env.PEPESEA_DB_NAME,
+    password: process.env.PEPESEA_DB_PASSWORD,
+    port: parseInt(process.env.PEPESEA_DB_PORT),
+    ssl: true,
+    ssl: { rejectUnauthorized: false },
+  });
   
-  let TEST = new (require("../processors/nft"))(
-    process.argv[2] || "0xe3435edbf54b5126e817363900234adfee5b3cee",
-    process.argv[3] || "106"
-  );
-  await TEST.update(true);
+  let query = storage.knex
+    .raw(
+      `select address, token_id from nft WHERE  image is  null`
+    )
+    .toString();
+  let result = await storage.executeAsync(query);
+  console.log("About to run total failed:", result.length);
+  for (const nft of result) {
+    let TEST = new (require("../processors/nft"))(
+      nft.address,
+      nft.token_id
+    );
+    await TEST.update(true);
+  }
 
   // do loop
 

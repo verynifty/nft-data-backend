@@ -109,9 +109,9 @@ NFT.prototype.update = async function (force = false) {
     let item = null;
 
     try {
-      console.log(collection)
+     // console.log(collection)
       let URI = await this._getMetadataURIFromBase(collection);
-
+      console.log(URI)
       URI = URI.trim();
       process.env.LOGS && console.log("token URI", URI);
 
