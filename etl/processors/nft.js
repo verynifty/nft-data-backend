@@ -321,7 +321,7 @@ NFT.prototype.prepareAttributes = async function (attributes) {
   for (const attribute of attributes) {
     if (attribute.value != null && attribute.trait_type != null) {
       if (typeof attribute.value === "string") {
-        map[attribute.trait_type] = attribute.value.replace('"', "'");
+        map[attribute.trait_type] = attribute.value.replaceAll('"', "'");
       } else {
         map[attribute.trait_type] = attribute.value;
       }
