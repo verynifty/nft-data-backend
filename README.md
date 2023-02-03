@@ -1,8 +1,41 @@
-# nft-data
+# NFT data ETL
 
+NFT data ETL by the [Muse DAO](https://musedao.io/) is an open source toolbox for indexing NFT transactions, sales and metadata on EVM compatible blockchains.
 
+## Requirements
 
-## TODO
+* A PostgreSQL compatible database
+* NodeJS
 
-* 0x57f1887a8bf19b14fc0df6fd9b2acc9af147ea85 (old)
-* 0x0e3a2a1f2146d86a604adc220b4967a898d7fe07
+## Installation
+
+Clone repository 
+
+```
+git clone git@github.com:verynifty/nft-data-backend.git
+cd nft-data-backend
+```
+
+Install dependencies
+
+```
+npm install
+```
+
+Add env variables:
+
+```
+touch .env
+```
+
+and edit with your own values:
+
+```
+PEPESEA_DB_USER=
+PEPESEA_DB_HOST=
+PEPESEA_DB_NAME=
+PEPESEA_DB_PASSWORD=
+PEPESEA_DB_PORT=
+
+PEPESEA_RPC=
+```
