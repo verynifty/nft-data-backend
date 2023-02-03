@@ -1,6 +1,11 @@
 # NFT data ETL
 
-NFT data ETL by the [Muse DAO](https://musedao.io/) is an open source toolbox for indexing NFT transactions, sales and metadata on EVM compatible blockchains.
+NFT data ETL by the [Muse DAO](https://musedao.io/) is an open source toolbox for indexing NFT transactions, sales and metadata on EVM compatible blockchains. This toolbox also contains an API to query the data including traits filtering.
+
+The toolbox is also able to decode trading history for the following marketplaces:
+* OpenSea
+* LooksRare
+* Zora
 
 ## Requirements
 
