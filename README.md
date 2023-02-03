@@ -68,7 +68,31 @@ This script will listen to incoming blocks and process them to extract relevant 
 
 ### Metadata
 
-The metadata ingestion for each NFT is 
+The metadata ingestion for each NFT is using a worker pool based on ```graphile_workers```. You can run workers on sperated servers using the script:
+
+```
+node worker.js
+```
+
+They will pick up jobs and execute them to populate the NFT metadata in the DB. 
+
+## Backfill history
+
+In order to populate your DB with old chain data, you can use the script:
+```
+node etl/past/launch_jobs.js
+```
+
+Don't forget to change the block range you want to launch the jobs on.
+
+# API
+
+This repo also contains all ```expressjs``` routes to query your data from a frontend. To launch it run:
+```
+node api/index.js
+```
+
+
 
 
 
