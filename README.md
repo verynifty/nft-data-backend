@@ -39,3 +39,20 @@ PEPESEA_DB_PORT=
 
 PEPESEA_RPC=
 ```
+
+Create the DB tables by executing the content of the file:
+```
+etl/database_scripts/create_all.sql
+```
+
+![Database schema](https://github.com/verynifty/nft-data-backend/blob/main/table_summary.png?raw=true)
+
+
+You can delete at anytime all the tables using:
+
+```
+etl/database_scripts/delete_all.sql
+```
+
+## Running
+
