@@ -56,3 +56,19 @@ etl/database_scripts/delete_all.sql
 
 ## Running
 
+### Live mode
+
+To listen to incoming blocks you can run:
+
+```
+node etl/live.js
+```
+
+This script will listen to incoming blocks and process them to extract relevant data and populate the database. If you stop the script, the next time it will run it will ingest blocks from the latest of your DB to the top of the blockchain.
+
+### Metadata
+
+The metadata ingestion for each NFT is 
+
+
+
